@@ -20,6 +20,7 @@ class Direction(Enum):  # 0 ← 1 ↑ 2 → 3 ↓
 
 Tree = Dict[Direction, 'Branch']
 
+path_branches = []
 
 class Branch:
     def __init__(self, matrix: np.matrix, directions: List[Direction], tree: Tree = None):
@@ -75,6 +76,7 @@ def func(matrix: np.matrix) -> float:
     for i in range(1, reshaped.size):
         if reshaped[i - 1] == i:
             f -= 1
+    print(f)
     return f
 
 
@@ -141,6 +143,7 @@ def get_tree(matrix: np.matrix) -> tuple[Branch, int, Branch]:
     while True:
         step_number += 1
         branch, f = branches.get()
+        path_branches.append(branch)
         # print(branch)
         cond = condition_for_exiting(f, step_number)
         if cond[0]:
